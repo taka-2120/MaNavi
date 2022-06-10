@@ -14,6 +14,9 @@
 		9A228FBB2850F7C800E0CD35 /* MaNaviTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FBA2850F7C800E0CD35 /* MaNaviTests.swift */; };
 		9A228FC52850F7C800E0CD35 /* MaNaviUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FC42850F7C800E0CD35 /* MaNaviUITests.swift */; };
 		9A228FC72850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */; };
+		9A228FD62850F86D00E0CD35 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A228FD52850F86D00E0CD35 /* MapKit.framework */; };
+		9A708CF42852E84C00D3B8B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A708CF32852E84C00D3B8B0 /* MapView.swift */; };
+		9A708CF62853191400D3B8B0 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A708CF52853191400D3B8B0 /* ContentModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,10 @@
 		9A228FC02850F7C800E0CD35 /* MaNaviUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaNaviUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A228FC42850F7C800E0CD35 /* MaNaviUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaNaviUITests.swift; sourceTree = "<group>"; };
 		9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaNaviUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9A228FD32850F86D00E0CD35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9A228FD52850F86D00E0CD35 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9A708CF32852E84C00D3B8B0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		9A708CF52853191400D3B8B0 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A228FD62850F86D00E0CD35 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +86,7 @@
 				9A228FB92850F7C800E0CD35 /* MaNaviTests */,
 				9A228FC32850F7C800E0CD35 /* MaNaviUITests */,
 				9A228FA72850F7C700E0CD35 /* Products */,
+				9A228FD42850F86D00E0CD35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,10 +103,13 @@
 		9A228FA82850F7C700E0CD35 /* MaNavi */ = {
 			isa = PBXGroup;
 			children = (
+				9A228FD32850F86D00E0CD35 /* Info.plist */,
 				9A228FA92850F7C700E0CD35 /* MaNaviApp.swift */,
 				9A228FAB2850F7C700E0CD35 /* ContentView.swift */,
+				9A708CF32852E84C00D3B8B0 /* MapView.swift */,
 				9A228FAD2850F7C800E0CD35 /* Assets.xcassets */,
 				9A228FAF2850F7C800E0CD35 /* Preview Content */,
+				9A708CF52853191400D3B8B0 /* ContentModel.swift */,
 			);
 			path = MaNavi;
 			sourceTree = "<group>";
@@ -125,6 +137,14 @@
 				9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */,
 			);
 			path = MaNaviUITests;
+			sourceTree = "<group>";
+		};
+		9A228FD42850F86D00E0CD35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A228FD52850F86D00E0CD35 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +278,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A228FAC2850F7C700E0CD35 /* ContentView.swift in Sources */,
+				9A708CF62853191400D3B8B0 /* ContentModel.swift in Sources */,
+				9A708CF42852E84C00D3B8B0 /* MapView.swift in Sources */,
 				9A228FAA2850F7C700E0CD35 /* MaNaviApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,11 +442,16 @@
 				DEVELOPMENT_TEAM = 94WA597YZM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MaNavi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MaNavi;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "現在地周辺の学校や駅を検索するために使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -432,9 +459,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "yu-takahashi.MaNavi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -449,11 +479,16 @@
 				DEVELOPMENT_TEAM = 94WA597YZM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MaNavi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MaNavi;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "現在地周辺の学校や駅を検索するために使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,9 +496,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "yu-takahashi.MaNavi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
