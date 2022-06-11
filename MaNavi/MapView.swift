@@ -65,7 +65,9 @@ public struct MapView: UIViewRepresentable {
         mapView.isScrollEnabled = true
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
-        mapView.selectableMapFeatures = .pointsOfInterest
+        if #available(iOS 16, *) {
+            mapView.selectableMapFeatures = .pointsOfInterest
+        }
     }
     
     // MARK: - Interaction and delegate implementation
@@ -88,17 +90,19 @@ public struct MapView: UIViewRepresentable {
         }
         
         public func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-            guard let featureAnnotation = annotation as? MKMapFeatureAnnotation else { return }
-            let featureRequest = MKMapItemRequest(mapFeatureAnnotation: featureAnnotation)
-            
-            Task {
-                do {
-                    guard let featuredItem = try await featureRequest.mapItem else { return }
-                    await mapView.setCenter(featureAnnotation.coordinate, animated: true)
-                    selectedItem = featuredItem
-                    isCardShown = true
-                } catch {
-                    print("Error")
+            if #available(iOS 16, *) {
+                guard let featureAnnotation = annotation as? MKMapFeatureAnnotation else { return }
+                let featureRequest = MKMapItemRequest(mapFeatureAnnotation: featureAnnotation)
+                
+                Task {
+                    do {
+                        guard let featuredItem = try await featureRequest.mapItem else { return }
+                        await mapView.setCenter(featureAnnotation.coordinate, animated: true)
+                        selectedItem = featuredItem
+                        isCardShown = true
+                    } catch {
+                        print("Error")
+                    }
                 }
             }
         }
