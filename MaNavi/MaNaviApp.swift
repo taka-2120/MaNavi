@@ -11,11 +11,7 @@ import SwiftUI
 struct MaNaviApp: App {
     var body: some Scene {
         WindowGroup {
-            if #available(iOS 16, *) {
-                ContentView()
-            } else {
-                ContentView_OLD()
-            }
+            ContentView()
         }
     }
 }

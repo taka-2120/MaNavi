@@ -8,32 +8,9 @@
 import SwiftUI
 import MapKit
 
-func poiToString(poiCat: MKPointOfInterestCategory?) -> String {
-    switch poiCat! {
-    case .school: return "学校"
-    case .publicTransport: return "公共交通機関"
-    case .university: return "大学"
-    default: return "その他"
-    }
-}
-
-enum Transportation: String, CaseIterable, Identifiable {
-    case walk, publicTrans, car
-    var id: Self { self }
-}
-
-extension Transportation {
-    var toSysIcon: String {
-        switch self {
-        case .walk: return "figure.walk"
-        case .publicTrans: return "bus"
-        case .car: return "car"
-        }
-    }
-}
-
 struct CardView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Binding var isCardShown: Bool
+    @Binding var offset: CGFloat
     @Binding var featuredItem: MKMapItem?
     @State private var selectedTrans: Transportation = .walk
     let currentLocation: CLLocation?
@@ -53,7 +30,14 @@ struct CardView: View {
                     .cornerRadius(8)
                     Spacer()
                     Button(action: {
-                        presentationMode.wrappedValue.dismiss()
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            let height = UIScreen.main.bounds.height
+                            offset = height
+                            
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            isCardShown = false
+                        }
                     }, label: {
                         Image(systemName: "xmark")
                             .foregroundColor(Color(.label))
@@ -78,7 +62,7 @@ struct CardView: View {
                 
                 if currentLocation != nil {
                     let distance = featuredItem?.placemark.location?.distance(from: currentLocation!) ?? 0 //meter
-                    Text(String(format: "%.2fkm", distance/1000))
+                    Text("直線距離" + String(format: "%.2fkm", distance/1000))
                 } else {
                     Text("距離不明")
                 }
@@ -92,14 +76,14 @@ struct CardView: View {
                 
                 Divider()
                 
-                Picker("Topping", selection: $selectedTrans) {
+                Picker("", selection: $selectedTrans) {
                     ForEach(Transportation.allCases) { trans in
                         Image(systemName: trans.toSysIcon)
                     }
                 }
                 .pickerStyle(.segmented)
                 
-                Text("ETS: --分")
+                Text("ETA: --分")
                     .padding(.vertical)
                 
                 HStack {
@@ -124,3 +108,6 @@ struct CardView: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 }
+
+
+//BLUR

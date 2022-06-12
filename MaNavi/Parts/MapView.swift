@@ -16,26 +16,38 @@ public struct MapView: UIViewRepresentable {
     let mapType: MKMapType
     @Binding var region: MKCoordinateRegion?
     @Binding var isCardShown: Bool
+    @Binding var offset: CGFloat
     @Binding var selectedItem: MKMapItem?
+    
+    let tokyo = CLLocationCoordinate2D(latitude: 36.2048, longitude: 138.2529)
+    let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     
     public init(mapType: MKMapType = .standard,
                 region: Binding<MKCoordinateRegion?> = .constant(nil),
                 isCardShown: Binding<Bool>,
+                offset: Binding<CGFloat>,
                 selectedItem: Binding<MKMapItem?>) {
         self.mapType = mapType
         self._region = region
         self._isCardShown = isCardShown
+        self._offset = offset
         self._selectedItem = selectedItem
     }
     
     // MARK: - UIViewRepresentable
     public func makeCoordinator() -> MapView.Coordinator {
-        return Coordinator(for: self, isCardShown: $isCardShown, selectedItem: $selectedItem)
+        return Coordinator(for: self, isCardShown: $isCardShown, offset: $offset, selectedItem: $selectedItem)
     }
     
     public func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
+        
+        if let mapRegion = self.region {
+            let region = mapView.regionThatFits(mapRegion)
+            
+            mapView.setRegion(region, animated: true)
+        }
         
         let category: [MKPointOfInterestCategory] = [.school, .university, .publicTransport]
         let filter = MKPointOfInterestFilter(including: category)
@@ -53,18 +65,13 @@ public struct MapView: UIViewRepresentable {
     // MARK: - Configuring view state
     private func configureView(_ mapView: MKMapView, context: UIViewRepresentableContext<MapView>) {
         mapView.mapType = self.mapType
-        if let mapRegion = self.region {
-            let region = mapView.regionThatFits(mapRegion)
-            
-            mapView.setRegion(region, animated: true)
-        }
         
         mapView.isRotateEnabled = true
         mapView.isPitchEnabled = true
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.showsUserLocation = true
-        mapView.userTrackingMode = .follow
+        mapView.userTrackingMode = .none
         if #available(iOS 16, *) {
             mapView.selectableMapFeatures = .pointsOfInterest
         }
@@ -75,12 +82,14 @@ public struct MapView: UIViewRepresentable {
         
         private let context: MapView
         @Binding var isCardShown: Bool
+        @Binding var offset: CGFloat
         @Binding var selectedItem: MKMapItem?
         
-        init(for context: MapView, isCardShown: Binding<Bool>, selectedItem: Binding<MKMapItem?>) {
+        init(for context: MapView, isCardShown: Binding<Bool>, offset: Binding<CGFloat>, selectedItem: Binding<MKMapItem?>) {
             self.context = context
             self._isCardShown = isCardShown
             self._selectedItem = selectedItem
+            self._offset = offset
             super.init()
         }
         
@@ -99,10 +108,14 @@ public struct MapView: UIViewRepresentable {
                         guard let featuredItem = try await featureRequest.mapItem else { return }
                         await mapView.setCenter(featureAnnotation.coordinate, animated: true)
                         selectedItem = featuredItem
-                        isCardShown = true
                     } catch {
                         print("Error")
                     }
+                }
+                isCardShown = true
+                offset = UIScreen.main.bounds.height
+                withAnimation(.easeInOut) {
+                    offset = UIScreen.main.bounds.height - 220
                 }
             }
         }

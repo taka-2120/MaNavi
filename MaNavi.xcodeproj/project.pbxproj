@@ -15,8 +15,10 @@
 		9A228FC52850F7C800E0CD35 /* MaNaviUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FC42850F7C800E0CD35 /* MaNaviUITests.swift */; };
 		9A228FC72850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */; };
 		9A228FD62850F86D00E0CD35 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A228FD52850F86D00E0CD35 /* MapKit.framework */; };
+		9A50E54B2855CC25002965DC /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54A2855CC25002965DC /* Functions.swift */; };
+		9A50E54D2855CC60002965DC /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54C2855CC60002965DC /* Data.swift */; };
+		9A50E54F2855CE12002965DC /* InteractiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54E2855CE12002965DC /* InteractiveSheet.swift */; };
 		9A708CF42852E84C00D3B8B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A708CF32852E84C00D3B8B0 /* MapView.swift */; };
-		9A708CF62853191400D3B8B0 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A708CF52853191400D3B8B0 /* ContentModel.swift */; };
 		9AED41DA2854793A00122496 /* CollapsedBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED41D92854793A00122496 /* CollapsedBar.swift */; };
 		9AED41DD2854794C00122496 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED41DC2854794C00122496 /* BottomBar.swift */; };
 		9AED41DF2854799F00122496 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED41DE2854799F00122496 /* CardView.swift */; };
@@ -52,8 +54,10 @@
 		9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaNaviUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9A228FD32850F86D00E0CD35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9A228FD52850F86D00E0CD35 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9A50E54A2855CC25002965DC /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		9A50E54C2855CC60002965DC /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		9A50E54E2855CE12002965DC /* InteractiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveSheet.swift; sourceTree = "<group>"; };
 		9A708CF32852E84C00D3B8B0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		9A708CF52853191400D3B8B0 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		9AED41D92854793A00122496 /* CollapsedBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedBar.swift; sourceTree = "<group>"; };
 		9AED41DC2854794C00122496 /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
 		9AED41DE2854799F00122496 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -109,14 +113,14 @@
 		9A228FA82850F7C700E0CD35 /* MaNavi */ = {
 			isa = PBXGroup;
 			children = (
-				9AED41D82854792300122496 /* Parts */,
-				9A228FD32850F86D00E0CD35 /* Info.plist */,
 				9A228FA92850F7C700E0CD35 /* MaNaviApp.swift */,
 				9A228FAB2850F7C700E0CD35 /* ContentView.swift */,
-				9A708CF32852E84C00D3B8B0 /* MapView.swift */,
+				9A50E54C2855CC60002965DC /* Data.swift */,
+				9A50E54A2855CC25002965DC /* Functions.swift */,
+				9AED41D82854792300122496 /* Parts */,
+				9A228FD32850F86D00E0CD35 /* Info.plist */,
 				9A228FAD2850F7C800E0CD35 /* Assets.xcassets */,
 				9A228FAF2850F7C800E0CD35 /* Preview Content */,
-				9A708CF52853191400D3B8B0 /* ContentModel.swift */,
 			);
 			path = MaNavi;
 			sourceTree = "<group>";
@@ -157,9 +161,11 @@
 		9AED41D82854792300122496 /* Parts */ = {
 			isa = PBXGroup;
 			children = (
+				9A50E54E2855CE12002965DC /* InteractiveSheet.swift */,
 				9AED41D92854793A00122496 /* CollapsedBar.swift */,
 				9AED41DC2854794C00122496 /* BottomBar.swift */,
 				9AED41DE2854799F00122496 /* CardView.swift */,
+				9A708CF32852E84C00D3B8B0 /* MapView.swift */,
 			);
 			path = Parts;
 			sourceTree = "<group>";
@@ -294,12 +300,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A50E54F2855CE12002965DC /* InteractiveSheet.swift in Sources */,
 				9AED41DF2854799F00122496 /* CardView.swift in Sources */,
 				9A228FAC2850F7C700E0CD35 /* ContentView.swift in Sources */,
-				9A708CF62853191400D3B8B0 /* ContentModel.swift in Sources */,
+				9A50E54B2855CC25002965DC /* Functions.swift in Sources */,
 				9AED41DD2854794C00122496 /* BottomBar.swift in Sources */,
 				9A708CF42852E84C00D3B8B0 /* MapView.swift in Sources */,
 				9AED41DA2854793A00122496 /* CollapsedBar.swift in Sources */,
+				9A50E54D2855CC60002965DC /* Data.swift in Sources */,
 				9A228FAA2850F7C700E0CD35 /* MaNaviApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
