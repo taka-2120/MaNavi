@@ -14,9 +14,10 @@ struct ContentView: View {
     @State private var region: MKCoordinateRegion? = nil
     @State private var isBarShown = true
     @State var isCardShown = false
+    @State var isSearchViewShown = false
     @State var featuredItem: MKMapItem? = nil
-    @State var offset: CGFloat = 0
-    let height = UIScreen.main.bounds.height
+    @State var infoOffset: CGFloat = 20
+    @State var searchOffset: CGFloat = 20
     
     init() {
         CLLocationManager.locationServicesEnabled()
@@ -25,44 +26,66 @@ struct ContentView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            MapView(mapType: .standard, region: $region, isCardShown: $isCardShown, offset: $offset, selectedItem: $featuredItem)
+            MapView(mapType: .standard, region: $region, isCardShown: $isCardShown, offset: $infoOffset, selectedItem: $featuredItem)
                 .ignoresSafeArea(edges: .vertical)
             
             if isBarShown {
-                BottomBar(isBarShown: $isBarShown)
+                BottomBar(isBarShown: $isBarShown, isSearchViewShown: $isSearchViewShown, searchOffset: $searchOffset)
             } else {
                 CollapsedBar(isBarShown: $isBarShown)
             }
             
             if isCardShown {
-                InteractiveSheet(isCardShown: $isCardShown, offset: $offset, featuredItem: $featuredItem, currentLocation: manager.location)
+                DetailsSheet(isCardShown: $isCardShown, offset: $infoOffset, featuredItem: $featuredItem, currentLocation: manager.location)
                     .onAppear() {
-                        offset = height - 220
+                        infoOffset = height - 220
                     }
-                    .offset(y: offset)
-                    .onTapGesture {
-                        
-                    }
-                    .gesture(DragGesture()
-                        .onChanged { value in
-                            withAnimation {
-                                print(value.translation.height)
-                                offset = value.location.y
-                            }
-                        }
-                        .onEnded { value in
-                            withAnimation {
-                                if value.location.y < height / 2 {
-                                    offset = height / 3
-                                    return
+                    .offset(y: infoOffset)
+                    .onTapGesture { }
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                withAnimation {
+                                    infoOffset = value.location.y
                                 }
-                                offset = height - 220
                             }
-
-                            print(offset)
-                        }
+                            .onEnded { value in
+                                withAnimation {
+                                    if value.location.y < height / 2 {
+                                        infoOffset = height / 3
+                                        return
+                                    }
+                                    infoOffset = height - 220
+                                }
+                            }
                     )
                 
+            }
+            
+            if isSearchViewShown {
+                SearchView(isSearchViewShown: $isSearchViewShown, searchOffset: $searchOffset, currentLocation: manager.location)
+                    .onAppear() {
+                        searchOffset = height - 190
+                    }
+                    .offset(y: searchOffset)
+                    .onTapGesture { }
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                withAnimation {
+                                    searchOffset = value.location.y
+                                }
+                            }
+                            .onEnded { value in
+                                withAnimation {
+                                    if value.location.y < height / 2 {
+                                        searchOffset = 20
+                                        return
+                                    }
+                                    searchOffset = height - 220
+                                }
+                            }
+                    )
             }
         }
     }

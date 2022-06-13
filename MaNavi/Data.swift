@@ -20,4 +20,12 @@ extension Transportation {
         case .car: return "car"
         }
     }
+    
+    var toString: String {
+        switch self {
+        case .walk: return "徒歩"
+        case .publicTrans: return "公共交通機関"
+        case .car: return "車"
+        }
+    }
 }

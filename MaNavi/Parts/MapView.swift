@@ -49,8 +49,7 @@ public struct MapView: UIViewRepresentable {
             mapView.setRegion(region, animated: true)
         }
         
-        let category: [MKPointOfInterestCategory] = [.school, .university, .publicTransport]
-        let filter = MKPointOfInterestFilter(including: category)
+        let filter = MKPointOfInterestFilter(including: poiCat)
         mapView.pointOfInterestFilter = filter
         
         self.configureView(mapView, context: context)
@@ -98,6 +97,16 @@ public struct MapView: UIViewRepresentable {
             return nil
         }
         
+        public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+            renderer.strokeColor = UIColor.systemBlue
+            return renderer
+        }
+        
+        public func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
+            mapView.removeOverlays(mapView.overlays)
+        }
+        
         public func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
             if #available(iOS 16, *) {
                 guard let featureAnnotation = annotation as? MKMapFeatureAnnotation else { return }
@@ -106,6 +115,20 @@ public struct MapView: UIViewRepresentable {
                 Task {
                     do {
                         guard let featuredItem = try await featureRequest.mapItem else { return }
+                        //Direction
+                        let request = MKDirections.Request()
+                        request.source = await MKMapItem(placemark: MKPlacemark(coordinate: mapView.region.center, addressDictionary: nil))
+                        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: featuredItem.placemark.coordinate, addressDictionary: nil))
+                        request.transportType = .walking
+                        
+                        let direction = MKDirections(request: request)
+                        direction.calculate { response, error in
+                            guard let response = response, let route = response.routes.first else {
+                                return
+                            }
+                            mapView.addOverlay(route.polyline)
+                        }
+                        
                         await mapView.setCenter(featureAnnotation.coordinate, animated: true)
                         selectedItem = featuredItem
                     } catch {
