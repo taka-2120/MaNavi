@@ -15,28 +15,15 @@ public struct MapView: UIViewRepresentable {
     // MARK: - Properties
     let mapType: MKMapType
     @Binding var region: MKCoordinateRegion?
-    @Binding var isCardShown: Bool
-    @Binding var offset: CGFloat
     @Binding var selectedItem: MKMapItem?
+    @ObservedObject var sheetModel: SheetModel
     
     let tokyo = CLLocationCoordinate2D(latitude: 36.2048, longitude: 138.2529)
     let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     
-    public init(mapType: MKMapType = .standard,
-                region: Binding<MKCoordinateRegion?> = .constant(nil),
-                isCardShown: Binding<Bool>,
-                offset: Binding<CGFloat>,
-                selectedItem: Binding<MKMapItem?>) {
-        self.mapType = mapType
-        self._region = region
-        self._isCardShown = isCardShown
-        self._offset = offset
-        self._selectedItem = selectedItem
-    }
-    
     // MARK: - UIViewRepresentable
     public func makeCoordinator() -> MapView.Coordinator {
-        return Coordinator(for: self, isCardShown: $isCardShown, offset: $offset, selectedItem: $selectedItem)
+        return Coordinator(for: self, selectedItem: $selectedItem, sheetModel: sheetModel)
     }
     
     public func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
@@ -80,15 +67,13 @@ public struct MapView: UIViewRepresentable {
     public class Coordinator: NSObject, MKMapViewDelegate {
         
         private let context: MapView
-        @Binding var isCardShown: Bool
-        @Binding var offset: CGFloat
         @Binding var selectedItem: MKMapItem?
+        var sheetModel: SheetModel
         
-        init(for context: MapView, isCardShown: Binding<Bool>, offset: Binding<CGFloat>, selectedItem: Binding<MKMapItem?>) {
+        init(for context: MapView, selectedItem: Binding<MKMapItem?>, sheetModel: SheetModel) {
             self.context = context
-            self._isCardShown = isCardShown
             self._selectedItem = selectedItem
-            self._offset = offset
+            self.sheetModel = sheetModel
             super.init()
         }
         
@@ -135,14 +120,10 @@ public struct MapView: UIViewRepresentable {
                         print("Error")
                     }
                 }
-                isCardShown = true
-                offset = UIScreen.main.bounds.height
-                withAnimation(.easeInOut) {
-                    offset = UIScreen.main.bounds.height - 220
-                }
+                
+                sheetModel.closeSearch()
+                sheetModel.showDetails()
             }
         }
-        
     }
-    
 }

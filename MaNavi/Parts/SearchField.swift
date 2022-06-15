@@ -10,16 +10,14 @@ import SwiftUI
 
 struct SearchField: View {
 
+    @ObservedObject var sheetModel: SheetModel
     @Binding var searchText: String
-    @Binding var searchOffset: CGFloat
     var onSubmit: (String) -> Void
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 239 / 255,
-                            green: 239 / 255,
-                            blue: 241 / 255))
+                .fill(Color(.secondarySystemBackground))
                 .frame(height: 36)
 
             HStack(spacing: 6) {
@@ -32,7 +30,7 @@ struct SearchField: View {
                 TextField("Search", text: $searchText)
                     .onTapGesture {
                         withAnimation {
-                            searchOffset = 20
+                            sheetModel.searchOffset = 20
                         }
                     }
                     .submitLabel(.search)

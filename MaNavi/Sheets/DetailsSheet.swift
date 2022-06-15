@@ -10,8 +10,7 @@ import MapKit
 
 struct DetailsSheet: View {
     
-    @Binding var isCardShown: Bool
-    @Binding var offset: CGFloat
+    @ObservedObject var sheetModel: SheetModel
     @Binding var featuredItem: MKMapItem?
     @State private var selectedTrans: Transportation = .walk
     let currentLocation: CLLocation?
@@ -27,14 +26,7 @@ struct DetailsSheet: View {
                     Spacer()
                     
                     Button(action: {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            let height = UIScreen.main.bounds.height
-                            offset = height
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            isCardShown = false
-                        }
+                        sheetModel.closeDetails()
                     }, label: {
                         Image(systemName: "xmark")
                             .foregroundColor(Color(.label))
@@ -71,7 +63,7 @@ struct DetailsSheet: View {
                             .font(.title)
                             .fontWeight(.bold)
                         Spacer()
-                        Text(poiToString(poiCat: featuredItem?.pointOfInterestCategory))
+                        Text((featuredItem?.pointOfInterestCategory.toString()) ?? "学校")
                     }
                     
                     if currentLocation != nil {

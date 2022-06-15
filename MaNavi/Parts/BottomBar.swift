@@ -10,8 +10,7 @@ import SwiftUI
 struct BottomBar: View {
     
     @Binding var isBarShown: Bool
-    @Binding var isSearchViewShown: Bool
-    @Binding var searchOffset: CGFloat
+    @ObservedObject var sheetModel: SheetModel
     
     var body: some View {
         VStack {
@@ -25,11 +24,8 @@ struct BottomBar: View {
                 Spacer()
                 
                 Button(action: {
-                    isSearchViewShown = true
-                    searchOffset = height
-                    withAnimation(.easeInOut) {
-                        searchOffset = height - 220
-                    }
+                    sheetModel.closeDetails()
+                    sheetModel.showSearch()
                 }, label: {
                     Image(systemName: "list.bullet.rectangle.portrait")
                         .foregroundColor(Color(.label))
@@ -65,6 +61,6 @@ struct BottomBar: View {
 
 struct BottomBar_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBar(isBarShown: .constant(true), isSearchViewShown: .constant(false), searchOffset: .constant(0))
+        BottomBar(isBarShown: .constant(true), sheetModel: SheetModel())
     }
 }

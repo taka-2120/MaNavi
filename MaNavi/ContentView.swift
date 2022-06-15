@@ -13,11 +13,8 @@ struct ContentView: View {
     let manager = CLLocationManager()
     @State private var region: MKCoordinateRegion? = nil
     @State private var isBarShown = true
-    @State var isCardShown = false
-    @State var isSearchViewShown = false
     @State var featuredItem: MKMapItem? = nil
-    @State var infoOffset: CGFloat = 20
-    @State var searchOffset: CGFloat = 20
+    @StateObject var sheetModel = SheetModel()
     
     init() {
         CLLocationManager.locationServicesEnabled()
@@ -26,63 +23,57 @@ struct ContentView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            MapView(mapType: .standard, region: $region, isCardShown: $isCardShown, offset: $infoOffset, selectedItem: $featuredItem)
+            MapView(mapType: .standard, region: $region, selectedItem: $featuredItem, sheetModel: sheetModel)
                 .ignoresSafeArea(edges: .vertical)
             
             if isBarShown {
-                BottomBar(isBarShown: $isBarShown, isSearchViewShown: $isSearchViewShown, searchOffset: $searchOffset)
+                BottomBar(isBarShown: $isBarShown, sheetModel: sheetModel)
             } else {
                 CollapsedBar(isBarShown: $isBarShown)
             }
             
-            if isCardShown {
-                DetailsSheet(isCardShown: $isCardShown, offset: $infoOffset, featuredItem: $featuredItem, currentLocation: manager.location)
-                    .onAppear() {
-                        infoOffset = height - 220
-                    }
-                    .offset(y: infoOffset)
+            if sheetModel.isDetailsShown {
+                DetailsSheet(sheetModel: sheetModel, featuredItem: $featuredItem, currentLocation: manager.location)
+                    .offset(y: sheetModel.detailsOffset)
                     .onTapGesture { }
                     .gesture(
                         DragGesture()
                             .onChanged { value in
                                 withAnimation {
-                                    infoOffset = value.location.y
+                                    sheetModel.detailsOffset = value.location.y
                                 }
                             }
                             .onEnded { value in
                                 withAnimation {
                                     if value.location.y < height / 2 {
-                                        infoOffset = height / 3
+                                        sheetModel.detailsOffset = height / 3
                                         return
                                     }
-                                    infoOffset = height - 220
+                                    sheetModel.detailsOffset = height - 220
                                 }
                             }
                     )
                 
             }
             
-            if isSearchViewShown {
-                SearchView(isSearchViewShown: $isSearchViewShown, searchOffset: $searchOffset, currentLocation: manager.location)
-                    .onAppear() {
-                        searchOffset = height - 190
-                    }
-                    .offset(y: searchOffset)
+            if sheetModel.isSearchShown {
+                SearchView(sheetModel: sheetModel, currentLocation: manager.location)
+                    .offset(y: sheetModel.searchOffset)
                     .onTapGesture { }
                     .gesture(
                         DragGesture()
                             .onChanged { value in
                                 withAnimation {
-                                    searchOffset = value.location.y
+                                    sheetModel.searchOffset = value.location.y
                                 }
                             }
                             .onEnded { value in
                                 withAnimation {
                                     if value.location.y < height / 2 {
-                                        searchOffset = 20
+                                        sheetModel.searchOffset = 20
                                         return
                                     }
-                                    searchOffset = height - 220
+                                    sheetModel.searchOffset = height - 220
                                 }
                             }
                     )

@@ -15,12 +15,13 @@
 		9A228FC52850F7C800E0CD35 /* MaNaviUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FC42850F7C800E0CD35 /* MaNaviUITests.swift */; };
 		9A228FC72850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */; };
 		9A228FD62850F86D00E0CD35 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A228FD52850F86D00E0CD35 /* MapKit.framework */; };
-		9A50E54B2855CC25002965DC /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54A2855CC25002965DC /* Functions.swift */; };
+		9A50E54B2855CC25002965DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54A2855CC25002965DC /* Extensions.swift */; };
 		9A50E54D2855CC60002965DC /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54C2855CC60002965DC /* Data.swift */; };
 		9A50E54F2855CE12002965DC /* DetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E54E2855CE12002965DC /* DetailsSheet.swift */; };
 		9A50E5542856EBBE002965DC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E5532856EBBE002965DC /* SearchView.swift */; };
 		9A50E55628575EC3002965DC /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E55528575EC3002965DC /* SearchField.swift */; };
 		9A50E5582857605C002965DC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E5572857605C002965DC /* Globals.swift */; };
+		9A50E55A2859817E002965DC /* SheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A50E5592859817E002965DC /* SheetModel.swift */; };
 		9A708CF42852E84C00D3B8B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A708CF32852E84C00D3B8B0 /* MapView.swift */; };
 		9AED41DA2854793A00122496 /* CollapsedBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED41D92854793A00122496 /* CollapsedBar.swift */; };
 		9AED41DD2854794C00122496 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED41DC2854794C00122496 /* BottomBar.swift */; };
@@ -56,12 +57,14 @@
 		9A228FC62850F7C800E0CD35 /* MaNaviUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaNaviUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9A228FD32850F86D00E0CD35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9A228FD52850F86D00E0CD35 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		9A50E54A2855CC25002965DC /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		9A50E54A2855CC25002965DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9A50E54C2855CC60002965DC /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		9A50E54E2855CE12002965DC /* DetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsSheet.swift; sourceTree = "<group>"; };
 		9A50E5532856EBBE002965DC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9A50E55528575EC3002965DC /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		9A50E5572857605C002965DC /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		9A50E5592859817E002965DC /* SheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetModel.swift; sourceTree = "<group>"; };
+		9A50E55C28599026002965DC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9A708CF32852E84C00D3B8B0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9AED41D92854793A00122496 /* CollapsedBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedBar.swift; sourceTree = "<group>"; };
 		9AED41DC2854794C00122496 /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		9A228F9D2850F7C700E0CD35 = {
 			isa = PBXGroup;
 			children = (
+				9A50E55C28599026002965DC /* README.md */,
 				9A228FA82850F7C700E0CD35 /* MaNavi */,
 				9A228FB92850F7C800E0CD35 /* MaNaviTests */,
 				9A228FC32850F7C800E0CD35 /* MaNaviUITests */,
@@ -117,12 +121,13 @@
 		9A228FA82850F7C700E0CD35 /* MaNavi */ = {
 			isa = PBXGroup;
 			children = (
+				9A228FA92850F7C700E0CD35 /* MaNaviApp.swift */,
+				9A50E55B28598CC8002965DC /* Models */,
 				9AED41D82854792300122496 /* Parts */,
 				9A50E5522856EBAB002965DC /* Sheets */,
-				9A228FA92850F7C700E0CD35 /* MaNaviApp.swift */,
 				9A228FAB2850F7C700E0CD35 /* ContentView.swift */,
 				9A50E54C2855CC60002965DC /* Data.swift */,
-				9A50E54A2855CC25002965DC /* Functions.swift */,
+				9A50E54A2855CC25002965DC /* Extensions.swift */,
 				9A50E5572857605C002965DC /* Globals.swift */,
 				9A228FD32850F86D00E0CD35 /* Info.plist */,
 				9A228FAD2850F7C800E0CD35 /* Assets.xcassets */,
@@ -171,6 +176,14 @@
 				9A50E5532856EBBE002965DC /* SearchView.swift */,
 			);
 			path = Sheets;
+			sourceTree = "<group>";
+		};
+		9A50E55B28598CC8002965DC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9A50E5592859817E002965DC /* SheetModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9AED41D82854792300122496 /* Parts */ = {
@@ -315,9 +328,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A50E5542856EBBE002965DC /* SearchView.swift in Sources */,
+				9A50E55A2859817E002965DC /* SheetModel.swift in Sources */,
 				9A50E54F2855CE12002965DC /* DetailsSheet.swift in Sources */,
 				9A228FAC2850F7C700E0CD35 /* ContentView.swift in Sources */,
-				9A50E54B2855CC25002965DC /* Functions.swift in Sources */,
+				9A50E54B2855CC25002965DC /* Extensions.swift in Sources */,
 				9AED41DD2854794C00122496 /* BottomBar.swift in Sources */,
 				9A50E5582857605C002965DC /* Globals.swift in Sources */,
 				9A708CF42852E84C00D3B8B0 /* MapView.swift in Sources */,

@@ -12,8 +12,7 @@ import MapKit
 struct SearchView: View {
     
     @State var searchText = ""
-    @Binding var isSearchViewShown: Bool
-    @Binding var searchOffset: CGFloat
+    @ObservedObject var sheetModel: SheetModel
     let currentLocation: CLLocation?
     @State var places = [MKMapItem]()
     @State var radius = 5000
@@ -29,13 +28,7 @@ struct SearchView: View {
                     Spacer()
                     
                     Button(action: {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            searchOffset = height
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            isSearchViewShown = false
-                        }
+                        sheetModel.closeSearch()
                     }, label: {
                         Image(systemName: "xmark")
                             .foregroundColor(Color(.label))
@@ -60,7 +53,7 @@ struct SearchView: View {
             .padding(.horizontal)
             .padding(.top, 5)
             
-            SearchField(searchText: $searchText, searchOffset: $searchOffset, onSubmit: searchResult)
+            SearchField(sheetModel: sheetModel, searchText: $searchText, onSubmit: searchResult)
                 .padding(.bottom)
             
             ScrollView {
@@ -123,6 +116,6 @@ struct ReaultRow: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(isSearchViewShown: .constant(true), searchOffset: .constant(0), currentLocation: CLLocation(latitude: 36.2048, longitude: 138.2529))
+        SearchView(sheetModel: SheetModel(), currentLocation: CLLocation(latitude: 36.2048, longitude: 138.2529))
     }
 }
